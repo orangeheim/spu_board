@@ -1,0 +1,68 @@
+<h4><center>CAFE CRAWLING SERVICE</center>\
+    <?php
+
+print_r($_POST['arr']);
+echo $_POST['e_date'];
+
+
+    ?>
+
+<!--
+<table border=1 align="center">
+    <tr>
+        <th>게시판이름</th>
+        <th>게시글 수</th>
+        <th>조회수</th>
+        <th>평균조회수</th>
+
+    </tr>
+    <?php
+       foreach($result->result->menus->menu as $value)
+    {
+    echo sprintf('<tr align="center">');
+    echo sprintf('<td> <a href="./index.php?mode=getArticleList&clubid=%s&menuid=%s&page=%d&perpage=%d&menuname=%s">%s</a></td>', $_GET['clubid'], $value->menuid, 1, 15, $value->menuname, $value->menuname);
+
+    $count_num=0;
+    $read_num=0;
+    $avg_num=0;
+    $article_num=0;
+    $is_run = 1;
+    for ($i = 1; $is_run; $i++) {
+
+    $result_article = $cafe_api->getArticleList($getArticleList, $clubid, $value->menuid, $i, 50);
+
+    if ($result_article->result->itemCount == 0) {
+    break;
+    }
+    $count_num  +=  $result_article->result->itemCount;
+    foreach($result_article->result->articles->article as $value){
+
+    $compare_str = $value -> writedate;
+    $str = str_replace(".","",$compare_str);
+    $str_f = substr($str, 0, 8);
+
+    if(intval($str_f) < intval($sdate)){
+    $is_run = 0;
+    break;
+    }
+
+    if( (intval($edate) >= intval($str_f)) && (intval($sdate) <= intval($str_f)) ){
+
+    $read_num+=$value->readCount;
+    $article_num = $article_num + 1;
+    }
+
+    }
+    }
+
+    $avg_num=$read_num/$article_num;
+    echo '<td>'.$article_num.'</td>';
+    echo '<td>'.$read_num.'</td>';
+    echo '<td>'.round($avg_num,2).'</td>';
+    echo sprintf('</tr>');
+
+    }
+    ?>
+</table>
+-->
+

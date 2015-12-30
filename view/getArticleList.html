@@ -1,0 +1,37 @@
+<h4>[<?php echo $menuname; ?>] CRAWLING SERVICE</h4>
+<table style="border: 1px solid #eee;">
+    <cols="100" />
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($result->result->articles->article as $value){ ?>
+    <tr>
+        <td><?php echo $value->articleid; ?></td>
+        <td>
+            <?php echo sprintf('<a href="http://cafe.naver.com/ArticleRead.nhn?clubid=%s&page=%s&menuid=%s&boardtype=L&articleid=%s" target="_blank">', $_GET['clubid'], $_GET['page'], $value->menuid, $value->articleid);  ?>
+            <?php echo $value->subject; ?>[<?php echo $value->commentCount; ?>] <?php echo ($value->newArticle) ? "(New)" : ""; ?></a>
+        </td>
+        <td><?php echo $value->nickname; ?></td>
+        <td><?php echo $value->writedate; ?></td>
+        <td><?php echo $value->readCount; ?></td>
+
+    </tr>
+    <?php } ?>
+    </tbody>
+</table>
+
+<ul>
+    <?php if($page != 1){ ?>
+    <li><a href="./index.php?mode=getArticleList&clubid=<?php echo $clubid; ?>&menuid=<?php echo $menuid; ?>&page=<?php echo ($page - 1); ?>&perpage=<?php echo $per_page; ?>&menuname=<?php echo $menuname; ?>">이전</a></li>
+    <?php } ?>
+    <?php if($result->result->itemCount == $per_page){ ?>
+    <li><a href="./index.php?mode=getArticleList&clubid=<?php echo $clubid; ?>&menuid=<?php echo $menuid; ?>&page=<?php echo ($page + 1); ?>&perpage=<?php echo $per_page; ?>&menuname=<?php echo $menuname; ?>">다음</a></li>
+    <?php } ?>
+</ul>

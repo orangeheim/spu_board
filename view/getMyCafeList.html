@@ -1,0 +1,21 @@
+<h4> 내가 가입한 카페 목록 </h4>
+<p>내가 가입한 카페 수 : <?php echo (Int)$result->result->myCafes->totalCount; ?></p>
+<p>카페목록 정렬 : <a href="./index.php?mode=getMyCafeList&order=C">케릭터순</a> | <a href="./index.php?mode=getMyCafeList&order=U">업데이트순</a></p>
+
+<ul>
+    <?php
+                foreach($result->result->myCafes->myCafe as $value)
+    {
+    echo sprintf('<li><a href="./index.php?mode=getDate&clubid=%s&clubname=%s">%s</a>(새글 : %s, 업데이트 : %s)</li>', $value->clubid, $value->clubname, $value->clubname, $value->articleNewCount, $value->lastUpdateDate);
+    echo "\r\n";
+    }
+    ?>
+</ul>
+<p>
+    <?php
+                if((Int)$result->result->myCafes->totalCount > 0){
+    for($i = 1; $i <= ceil((Int)$result->result->myCafes->totalCount / $per_page); $i++){ ?>
+    <a href="./index.php?mode=getMyCafeList&page=<?php echo $i; ?>&order=<?php echo $_GET['order']; ?>"><?php echo $i; ?></a>
+    <?php }} ?>
+
+</p>

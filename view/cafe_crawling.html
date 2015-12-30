@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!--<script>
+
+        function fn_checkBox(){
+
+            var arr = new Array();
+            var inputElements = document.getElementsByClassName('clubCheckbox');
+
+            for(var i=0; inputElements[i]; ++i){
+                if(inputElements[i].checked){
+                    arr.push(inputElements[i].value)
+                    break;
+                }
+            }
+
+
+
+        }
+
+
+    </script>-->
+
+    <meta charset="UTF-8">
+    <title>cafe crawling program</title>
+</head>
+
+<body>
+<form action="index.php?mode=getMenuList&clubid=15780875" method="POST">
+   <!-- <input type="hidden" name="mode" value="getMenuList"/>
+    <input type="hidden" name="clubid" value="15780875"/>-->
+   <!-- <input type="hidden" name="arr[]" value="hello"/>-->
+<!--
+    <input type="button" value="test" onclick="fn_checkBox()" >
+-->
+    <table align="center">
+        <tr>
+            <td colspan=3 align="center">
+                <h2>SPECUP CRAWLING</h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan=3 align="center">
+                <h3>날짜를 입력해주세요.</h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3 align="center">
+                <h4>ex)151223</h4>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input name="s_date" size="20" ></td>
+            <td><b>~</b></td>
+            <td><input name="e_date" size="20" ></td>
+        </tr>
+
+
+
+
+    </table>
+    <br><br>
+    <table border=1 align="center">
+        <tr>
+            <th>선택</th>
+            <th>게시판 명</th>
+        </tr>
+        <?php
+       foreach($result->result->menus->menu as $value)
+        {
+
+        echo sprintf('<tr align="center">');
+        echo sprintf('<td><input  type="checkbox" name="arr[]" value="'.$value->menuid.'"></td>');
+
+        echo sprintf('<td> <a href="./index.php?mode=getMenuList&clubid=%s&menuid=%s&page=%d&perpage=%d&menuname=%s">%s</a></td>', $_GET['clubid'], $value->menuid, 1, 15, $value->menuname, $value->menuname);
+
+        echo sprintf('</tr>');
+
+        }
+        ?>
+
+        <tr>
+            <td colspan=3 align="center">
+                <input type=submit value="submit">
+            </td>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>
+
+
